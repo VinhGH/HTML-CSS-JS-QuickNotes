@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Notes</title>
+
+    <!-- Liên kết file CSS chính -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Liên kết font chữ Poppins từ Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header của trang: chứa tiêu đề và các nút thao tác -->
+    <header class="header">
+        <h1>Quick Notes</h1>
+        <div class="header-actions">
+            <!-- Nút thêm ghi chú mới -->
+            <button class="add-note-btn" onclick="openNoteDialog()">+ Add Note</button>
+
+            <!-- Nút chuyển đổi giao diện sáng/tối -->
+            <button id="themeToggLight" class="theme-toggle-btn_light">🌙</button>
+            <button id="themeToggDark" class="theme-toggle-btn_dark">☀️</button>
+        </div>
+    </header>
+
+    <!-- Khu vực hiển thị danh sách ghi chú -->
+    <main id="notesContainer" class="notes-grid">
+        <div class="empty-state">
+            <!-- Khi chưa có ghi chú nào -->
+            <h2>No notes yet</h2>
+            <p>Create your first note to get started!</p>
+
+            <!-- Nút tạo ghi chú đầu tiên -->
+            <button class="add-note-btn" onclick="openNoteDialog()">+ Add Your First Note</button>
+        </div>
+    </main>
+
+    <!-- Popup dialog: hiển thị form thêm ghi chú -->
+    <dialog id="noteDialog">
+        <div class="dialog-content">
+            <!-- Header của popup -->
+            <div class="dialog-header">
+                <h2 class="dialog-title" id="dialogTitle">Add New Note</h2>
+                <!-- Nút đóng popup -->
+                <button class="close-btn" onclick="closeNoteDialog()">x</button>
+            </div>
+
+            <!-- Form nhập dữ liệu ghi chú -->
+            <form id="noteForm">
+                <!-- Nhập tiêu đề ghi chú -->
+                <div class="form-group">
+                    <label for="noteTitle" class="form-label">Title</label>
+                    <input type="text" id="noteTitle" class="form-input" placeholder="Enter note title..." required>
+                </div>
+
+                <!-- Nhập nội dung ghi chú -->
+                <div class="form-group">
+                    <label for="noteContent" class="form-label">Content</label>
+                    <textarea id="noteContent" class="form-textarea" placeholder="Write your note here..."
+                        required></textarea>
+                </div>
+
+                <!-- Các nút thao tác trong popup -->
+                <div class="dialog-actions">
+                    <button type="button" class="cancel-btn" onclick="closeNoteDialog()">Cancel</button>
+                    <button type="submit" class="save-btn">Save Note</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Liên kết file JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>
