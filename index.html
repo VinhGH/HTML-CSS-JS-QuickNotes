@@ -5,75 +5,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quick Notes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <!-- Liên kết file CSS chính -->
+
+    <!-- CSS chính -->
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Liên kết font chữ Poppins từ Google Fonts -->
+    <!-- Font chữ Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Header của trang: chứa tiêu đề và các nút thao tác -->
+    <!-- ================= HEADER ================= -->
     <header class="header">
         <h1>Quick Notes</h1>
+
         <div class="header-actions">
-            <!-- Nút thêm ghi chú mới -->
+            <!-- Nút thêm ghi chú -->
             <button class="add-note-btn" onclick="openNoteDialog()">+ Add Note</button>
 
-            <!-- Nút chuyển đổi giao diện sáng/tối -->
+            <!-- Nút chuyển theme -->
             <button id="themeToggLight" class="theme-toggle-btn_light">🌙</button>
             <button id="themeToggDark" class="theme-toggle-btn_dark">☀️</button>
         </div>
     </header>
 
-    <!-- Khu vực hiển thị danh sách ghi chú -->
+    <!-- ================= MAIN (Khu hiển thị ghi chú) ================= -->
     <main id="notesContainer" class="notes-grid">
+        <!-- Ban đầu nếu chưa có ghi chú -->
         <div class="empty-state">
-            <!-- Khi chưa có ghi chú nào -->
             <h2>No notes yet</h2>
             <p>Create your first note to get started!</p>
-
-            <!-- Nút tạo ghi chú đầu tiên -->
             <button class="add-note-btn" onclick="openNoteDialog()">+ Add Your First Note</button>
         </div>
     </main>
 
-    <!-- Popup dialog: hiển thị form thêm ghi chú -->
+    <!-- ================= POPUP THÊM GHI CHÚ ================= -->
     <dialog id="noteDialog">
-        <div class="dialog-content">
-            <!-- Header của popup -->
-            <div class="dialog-header">
-                <h2 class="dialog-title" id="dialogTitle">Add New Note</h2>
-                <!-- Nút đóng popup -->
-                <button class="close-btn" onclick="closeNoteDialog()">x</button>
+        <form id="noteForm" method="dialog">
+            <!-- Header -->
+            <div class="dialog_header">
+                <div>Add New Note</div>
+                <button class="close_btn" id="close_btn" type="button">×</button>
             </div>
 
-            <!-- Form nhập dữ liệu ghi chú -->
-            <form id="noteForm">
-                <!-- Nhập tiêu đề ghi chú -->
-                <div class="form-group">
-                    <label for="noteTitle" class="form-label">Title</label>
-                    <input type="text" id="noteTitle" class="form-input" placeholder="Enter note title..." required>
+            <!-- Body -->
+            <div class="dialog_body">
+                <div class="dialog_input">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" placeholder="Enter note title..." required />
                 </div>
 
-                <!-- Nhập nội dung ghi chú -->
-                <div class="form-group">
-                    <label for="noteContent" class="form-label">Content</label>
-                    <textarea id="noteContent" class="form-textarea" placeholder="Write your note here..."
-                        required></textarea>
+                <div class="dialog_input">
+                    <label for="content">Content</label>
+                    <textarea id="content" name="content" placeholder="Write your note here..." required></textarea>
                 </div>
+            </div>
 
-                <!-- Các nút thao tác trong popup -->
-                <div class="dialog-actions">
-                    <button type="button" class="cancel-btn" onclick="closeNoteDialog()">Cancel</button>
-                    <button type="submit" class="save-btn">Save Note</button>
-                </div>
-            </form>
-        </div>
+            <!-- Footer -->
+            <div class="dialog_footer">
+                <button class="cancel_btn" type="button">Cancel</button>
+                <button class="save_btn" type="submit">Save Note</button>
+            </div>
+        </form>
     </dialog>
 
-    <!-- Liên kết file JavaScript -->
+    <!-- ================= JAVASCRIPT ================= -->
     <script src="script.js"></script>
 </body>
 

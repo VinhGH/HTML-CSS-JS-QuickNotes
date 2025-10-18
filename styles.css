@@ -1,25 +1,45 @@
+/* =========================================
+   🎨 COLOR SYSTEM & THEME VARIABLES
+========================================= */
 :root {
-    --brand-color: #8b90ff;
-    --brand-hover-color: #7b82ff;
-    --base-color: #f5f6fa;
-    --surface-color: #ffffff;
-    --text-color: #2b2b2b;
-    --secondary-text-color: #555555;
-    --neutral-bg: #f5f6fa;
-    --input-bg-color: #f7f8fa;
-    --input-focus-shadow: rgba(139, 144, 255, 0.2);
-    --base-transparent-90: rgba(245, 246, 250, 0.9);
-    --base-transparent-100: rgba(245, 246, 250, 1);
+  --brand-color: #8b90ff;
+  --brand-hover-color: #7b82ff;
+  --base-color: #f5f6fa;
+  --surface-color: #ffffff;
+  --text-color: #2b2b2b;
+  --secondary-text-color: #555555;
+  --neutral-bg: #f5f6fa;
+  --input-bg-color: #f7f8fa;
+  --input-focus-shadow: rgba(139, 144, 255, 0.2);
+  --base-transparent-90: rgba(245, 246, 250, 0.9);
+  --base-transparent-100: rgba(245, 246, 250, 1);
+  --dialog-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.3s;
 }
 
-/* RESET */
+/* 🌙 DARK THEME OVERRIDE */
+:root[data-theme="dark"] {
+  --brand-color: #7b82ff;
+  --brand-hover-color: #a0a4ff;
+  --base-color: #191b23;
+  --surface-color: #23252f;
+  --text-color: #f2f2f2;
+  --secondary-text-color: #c6c6c6;
+  --neutral-bg: #2a2c36;
+  --input-bg-color: #2f313c;
+  --input-focus-shadow: rgba(139, 144, 255, 0.3);
+  --dialog-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================================
+   🔄 RESET & BASE
+========================================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* BODY */
 body {
   font-family: "Poppins", sans-serif;
   background-color: var(--base-color);
@@ -29,10 +49,12 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
-/* HEADER */
+/* =========================================
+   🧭 HEADER SECTION
+========================================= */
 header.header {
   width: 100%;
   max-width: 1100px;
@@ -47,10 +69,10 @@ h1 {
   font-weight: bold;
 }
 
-/* NÚT HÀNH ĐỘNG */
 .header-actions {
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
 .add-note-btn {
@@ -63,7 +85,6 @@ h1 {
   font-weight: 500;
   transition: background 0.2s ease;
 }
-
 .add-note-btn:hover {
   background: var(--brand-hover-color);
 }
@@ -77,19 +98,21 @@ h1 {
   border-radius: 0.5rem;
   cursor: pointer;
   font-size: 1rem;
-  margin-left: 1rem;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
-/* KHU VỰC NOTE */
+/* =========================================
+   🗒️ NOTES GRID
+========================================= */
 .notes-grid {
   width: 100%;
   max-width: 1100px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-left: 5rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
   margin-top: 3rem;
 }
 
@@ -110,153 +133,231 @@ h1 {
   color: var(--secondary-text-color);
 }
 
-/* POPUP DIALOG */
+/* =========================================
+   💬 DIALOG POPUP
+========================================= */
 dialog {
-  border: none;
-  border-radius: 1rem;
-  padding: 2.5rem 2rem;
-  width: 520px;
-  max-width: 90%;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
-  background: var(--surface-color);
-  position: fixed;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
-  transition: all 0.3s ease;
-  z-index: 1001;
-  font-family: "Poppins", sans-serif;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  max-width: 500px;
+  width: 90vw;
+  border-radius: 16px;
+  border: none;
+  background-color: var(--surface-color);
+  box-shadow: var(--dialog-shadow);
   color: var(--text-color);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 dialog::backdrop {
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(8px);
-  transition: all 0.3s ease;
-}
-
-@keyframes dialogFadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -45%) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
 }
 
 dialog[open] {
-  animation: dialogFadeIn 0.25s ease-out;
+  animation: fadeIn 0.25s ease;
 }
 
-/* HEADER TRONG POPUP */
-.dialog-header {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.dialog_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 24px;
+}
+
+.dialog_header div {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.close_btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close_btn:hover {
+  color: var(--brand-color);
+}
+
+.dialog_body {
+  margin-bottom: 24px;
+}
+
+.dialog_input {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1.25rem;
 }
 
-.dialog-header h2 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--text-color);
+.dialog_input label {
+  font-weight: 500;
+  margin-bottom: 8px;
 }
 
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 1.3rem;
-  cursor: pointer;
-  color: var(--secondary-text-color);
-}
-
-/* FORM */
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1.2rem;
-}
-
-.form-label {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--text-color);
-}
-
-.form-input,
-.form-textarea {
-  width: 100%;
-  padding: 0.9rem 1rem;
-  border: none;
-  border-radius: 0.6rem;
-  outline: none;
+.dialog_input input,
+.dialog_input textarea {
   background-color: var(--input-bg-color);
-  font-size: 0.95rem;
-  font-family: "Poppins", sans-serif;
   color: var(--text-color);
-  transition: background 0.2s ease, box-shadow 0.2s ease, color 0.3s ease;
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
 }
 
-.form-input:focus,
-.form-textarea:focus {
-  background-color: #f3f4f6;
-  box-shadow: 0 0 0 2px var(--input-focus-shadow);
+.dialog_input input:focus,
+.dialog_input textarea:focus {
+  outline: none;
+  border: 2px solid var(--brand-color);
+  box-shadow: 0 0 0 4px var(--input-focus-shadow);
 }
 
-.form-textarea {
-  height: 120px;
-  resize: both;
-}
-
-/* NÚT TRONG POPUP */
-.dialog-actions {
+.dialog_footer {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  margin-top: 1.5rem;
 }
 
-.cancel-btn {
-  background: var(--neutral-bg);
+.dialog_footer button {
+  padding: 12px 24px;
   border: none;
-  padding: 0.8rem 1.6rem;
-  border-radius: 0.6rem;
-  cursor: pointer;
+  border-radius: 8px;
   font-weight: 500;
-  color: var(--text-color);
-  font-family: "Poppins", sans-serif;
-  transition: background 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  transition: opacity var(--transition-speed) ease;
 }
 
-.save-btn {
+.cancel_btn {
+  color: var(--text-color);
+  background: transparent;
+}
+
+.cancel_btn:hover {
+  opacity: 0.7;
+}
+
+.save_btn {
+  color: #fff;
+  background-color: var(--brand-color);
+}
+
+.save_btn:hover {
+  background-color: var(--brand-hover-color);
+}
+
+/* =========================================
+   🧾 NOTE CARD 
+========================================= */
+.note-card {
+  background: var(--surface-color);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.25s ease;
+  position: relative;
+  flex: 1 1 300px;
+  max-width: 340px;
+  min-height: 130px;
+  word-wrap: break-word;
+}
+
+.note-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.note-card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.note-card p {
+  font-size: 0.95rem;
+  color: var(--secondary-text-color);
+  line-height: 1.5;
+}
+
+/* =========================================
+   ✏️ ACTION BUTTONS (EDIT / DELETE)
+========================================= */
+.note-actions {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 0.4rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.note-card:hover .note-actions {
+  opacity: 1;
+  visibility: visible;
+}
+
+.edit-btn,
+.delete-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  border: 1px solid transparent;
+  transition: background 0.25s ease, transform 0.2s ease, color 0.25s ease;
+}
+
+:root[data-theme="dark"] .edit-btn,
+:root[data-theme="dark"] .delete-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-color);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root:not([data-theme="dark"]) .edit-btn,
+:root:not([data-theme="dark"]) .delete-btn {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-color);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+.edit-btn:hover {
   background: var(--brand-color);
   color: #fff;
-  border: none;
-  padding: 0.8rem 1.6rem;
-  border-radius: 0.6rem;
-  cursor: pointer;
-  font-weight: 500;
-  font-family: "Poppins", sans-serif;
-  transition: background 0.3s ease;
+  transform: scale(1.05);
 }
 
-.save-btn:hover {
-  background: var(--brand-hover-color);
+.delete-btn:hover {
+  background: #ff4c4c;
+  color: #fff;
+  transform: scale(1.05);
 }
 
-/* --- DARK MODE OVERRIDE --- */
-:root[data-theme="dark"] {
-  --brand-color: #7b82ff;
-  --brand-hover-color: #a0a4ff;
-  --base-color: #191b23;
-  --surface-color: #23252f;
-  --text-color: #f2f2f2;
-  --secondary-text-color: #c6c6c6;
-  --neutral-bg: #2a2c36;
-  --input-bg-color: #2f313c;
-  --input-focus-shadow: rgba(139, 144, 255, 0.3);
+:root:not([data-theme="dark"]) .note-card:hover .edit-btn,
+:root:not([data-theme="dark"]) .note-card:hover .delete-btn {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.1);
 }
