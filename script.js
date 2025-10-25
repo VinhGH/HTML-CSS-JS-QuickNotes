@@ -78,6 +78,8 @@ function renderDataNote() {
     return;
   }
 
+  renderDataNote();
+
   // Nếu có dữ liệu -> duyệt và render từng ghi chú
   dataNote.forEach((note) => {
     const card = document.createElement("div");
@@ -114,40 +116,6 @@ function deleteNote(id) {
   }
 }
 
-// Sửa ghi chú
-function editNote(id) {
-  const note = dataNote.find((n) => n.id === id);
-  if (!note) return;
-
-  // Hiển thị popup và điền sẵn dữ liệu
-  openNoteDialog();
-  titleInput.value = note.title;
-  contentInput.value = note.content;
-
-  // Khi người dùng bấm "Save" -> cập nhật note thay vì thêm mới
-  noteForm.onsubmit = function (e) {
-    e.preventDefault();
-
-    note.title = titleInput.value.trim();
-    note.content = contentInput.value.trim();
-
-    localStorage.setItem("notes", JSON.stringify(dataNote));
-    renderDataNote();
-    noteForm.reset();
-    closeNoteDialog();
-
-    // Sau khi lưu xong -> gắn lại onsubmit mặc định (thêm mới)
-    noteForm.onsubmit = defaultSubmit;
-  };
-}
-
-// Hàm mặc định ban đầu (thêm note)
-const defaultSubmit = noteForm.onsubmit;
-
-// ============================
-// KHI TẢI TRANG, HIỂN THỊ DỮ LIỆU CŨ
-// ============================
-document.addEventListener("DOMContentLoaded", renderDataNote);
 
 // ============================
 // THEME TOGGLE (Light / Dark)
